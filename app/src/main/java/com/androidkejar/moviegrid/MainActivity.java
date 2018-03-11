@@ -20,7 +20,7 @@ import java.util.List;
  * Created by denail on 6/2/2017.
  */
 
-public class MainActivity2 extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private TabLayout tabLayout;
     private ViewPager viewPager;
@@ -35,7 +35,6 @@ public class MainActivity2 extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         viewPager = (ViewPager) findViewById(R.id.viewpager);
-        //setupViewPager(viewPager);
 
         tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
@@ -43,9 +42,6 @@ public class MainActivity2 extends AppCompatActivity {
         FlowManager.init(new FlowConfig.Builder(this).build());
         x = 0;
     }
-
-    //private void setupViewPager(ViewPager viewPager) {
-    //}
 
     @Override
     public void onResume(){
@@ -55,7 +51,6 @@ public class MainActivity2 extends AppCompatActivity {
         adapter.addFragment(new FragmentTopRated(), "TOP RATED");
         adapter.addFragment(new FragmentFavourite(), "FAVOURITE");
         viewPager.setAdapter(adapter);
-        //Log.d("TES-MAIN",x.toString());
     }
 
     class ViewPagerAdapter extends FragmentPagerAdapter {

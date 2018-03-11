@@ -98,29 +98,31 @@ public class FragmentTopRated extends Fragment {
         call.enqueue(new Callback<TopModel>() {
             @Override
             public void onResponse(Call<TopModel> call, Response<TopModel> response) {
-                List<TopResult> topList = response.body().getResults();
-                for (TopResult top : topList) {
-                    String url = "https://image.tmdb.org/t/p/w500/" + top.getPosterPath();
+                if(response.body() != null) {
+                    List<TopResult> topList = response.body().getResults();
+                    for (TopResult top : topList) {
+                        String url = "https://image.tmdb.org/t/p/w500/" + top.getPosterPath();
 
-                    String title    = top.getTitle();
-                    String release  = top.getReleaseDate();
-                    Double rating   = top.getVoteAverage();
-                    String synopsis = top.getOverview();
-                    String backgrop = "https://image.tmdb.org/t/p/w500/" + top.getBackdropPath();
-                    Integer id = top.getId();
+                        String title    = top.getTitle();
+                        String release  = top.getReleaseDate();
+                        Double rating   = top.getVoteAverage();
+                        String synopsis = top.getOverview();
+                        String backgrop = "https://image.tmdb.org/t/p/w500/" + top.getBackdropPath();
+                        Integer id = top.getId();
 
-                    MovieDetails movie = new MovieDetails();
-                    movie.setTitle(title);
-                    movie.setSynopsis(synopsis);
-                    movie.setRating(rating);
-                    movie.setRelease(release);
-                    movie.setBackdrop(backgrop);
-                    movie.setID(id);
-                    listURL.add(url);
-                    listMovie.add(movie);
+                        MovieDetails movie = new MovieDetails();
+                        movie.setTitle(title);
+                        movie.setSynopsis(synopsis);
+                        movie.setRating(rating);
+                        movie.setRelease(release);
+                        movie.setBackdrop(backgrop);
+                        movie.setID(id);
+                        listURL.add(url);
+                        listMovie.add(movie);
 
+                    }
+                    imageAdapter.refreshData(listURL);
                 }
-                imageAdapter.refreshData(listURL);
             }
 
             @Override

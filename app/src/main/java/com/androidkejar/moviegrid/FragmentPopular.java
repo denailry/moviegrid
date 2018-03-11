@@ -99,29 +99,31 @@ public class FragmentPopular extends Fragment {
         call.enqueue(new Callback<PopularModel>() {
             @Override
             public void onResponse(Call<PopularModel> call, Response<PopularModel> response) {
-                List<Result> popularList = response.body().getResults();
-                for (Result popular : popularList) {
-                    String url = "https://image.tmdb.org/t/p/w500/" + popular.getPosterPath();
-                    String title    = popular.getTitle();
-                    String release  = popular.getReleaseDate();
-                    Double rating   = popular.getVoteAverage();
-                    String synopsis = popular.getOverview();
-                    String backgrop = "https://image.tmdb.org/t/p/w500/" + popular.getBackdropPath();
-                    Integer id = popular.getId();
+                if(response.body() != null) {
+                    List<Result> popularList = response.body().getResults();
+                    for (Result popular : popularList) {
+                        String url = "https://image.tmdb.org/t/p/w500/" + popular.getPosterPath();
+                        String title    = popular.getTitle();
+                        String release  = popular.getReleaseDate();
+                        Double rating   = popular.getVoteAverage();
+                        String synopsis = popular.getOverview();
+                        String backgrop = "https://image.tmdb.org/t/p/w500/" + popular.getBackdropPath();
+                        Integer id = popular.getId();
 
-                    MovieDetails movie = new MovieDetails();
-                    movie.setTitle(title);
-                    movie.setSynopsis(synopsis);
-                    movie.setRating(rating);
-                    movie.setRelease(release);
-                    movie.setBackdrop(backgrop);
-                    movie.setID(id);
-                    listURL.add(url);
-                    listMovie.add(movie);
+                        MovieDetails movie = new MovieDetails();
+                        movie.setTitle(title);
+                        movie.setSynopsis(synopsis);
+                        movie.setRating(rating);
+                        movie.setRelease(release);
+                        movie.setBackdrop(backgrop);
+                        movie.setID(id);
+                        listURL.add(url);
+                        listMovie.add(movie);
 
+                    }
+
+                    imageAdapter.refreshData(listURL);
                 }
-
-                imageAdapter.refreshData(listURL);
             }
             @Override
             public void onFailure(Call<PopularModel> call, Throwable t) {

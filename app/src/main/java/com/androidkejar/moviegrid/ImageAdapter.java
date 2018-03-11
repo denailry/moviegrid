@@ -39,7 +39,6 @@ public class ImageAdapter extends BaseAdapter{
         return 0;
     }
 
-    // create a new ImageView for each item referenced by the Adapter
     public View getView(int position, View convertView, ViewGroup parent) {
         ImageView imageView;
         imageView = new ImageView(mContext);
@@ -57,7 +56,6 @@ public class ImageAdapter extends BaseAdapter{
 
     public void refreshData(ArrayList<String> posterURL){
         Integer listMovieSize = posterURL.size();
-        Log.d("TES-ADAPTER", listMovieSize.toString());
         this.mThumbIds = posterURL;
         notifyDataSetChanged();
     }
